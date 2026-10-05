@@ -1,0 +1,126 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#070b12"><title>CarbCount V7 • T1 Loop</title><style>:root{--bg:#070b12;--c:#101925;--l:#29364a;--t:#f5f7fb;--m:#91a0b5;--g:#38e28d;--b:#4bbcff;--o:#ffb45a;--p:#ae8cff;--r:#ff6b82}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#19304a,#070b12 45%);color:var(--t);font:15px -apple-system,BlinkMacSystemFont,Arial,sans-serif}main{max-width:850px;margin:auto;padding:14px 13px 45px}.top{display:flex;justify-content:space-between;align-items:center}.logo{font-size:25px;font-weight:900}.sub,.muted,.hint{color:var(--m);font-size:11px}.loop{padding:8px;border:1px solid #285c48;background:#0e2119;border-radius:13px;text-align:right}.loop b{color:var(--g);font-size:11px}nav{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;position:sticky;top:0;background:#070b12ed;padding:7px 0;z-index:5}nav button{font-size:10px;padding:7px 2px}button,input,select{font:inherit}button,input,select{border:1px solid var(--l);border-radius:12px;background:#0a111c;color:var(--t);padding:11px}button{font-weight:750;min-height:43px}button.primary{background:linear-gradient(135deg,#38df8a,#20b86c);color:#04130b;border-color:#38df8a}.blue{background:#0d2a3e}.red{color:#ff9aaa;background:#211117}.active{background:#123629!important;border-color:#2b825d!important}.card{background:linear-gradient(145deg,#111a28,#0d1520);border:1px solid var(--l);border-radius:18px;padding:15px;margin:10px 0}.hidden{display:none}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.hero{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.metric{background:#0a121d;border:1px solid var(--l);border-radius:13px;padding:10px}.metric span{display:block;color:var(--m);font-size:10px}.metric b{font-size:21px}.g{color:var(--g)}.b{color:var(--b)}.o{color:var(--o)}.p{color:var(--p)}label{display:block;color:var(--m);font-size:11px;margin:8px 0 4px}.food{display:flex;gap:8px;align-items:center;border-bottom:1px solid #202b3a;padding:9px 0}.foodmain{flex:1}.meta{color:var(--m);font-size:10px}.carb{color:var(--g);font-weight:900}.empty{text-align:center;color:var(--m);padding:16px}.photo{width:100%;max-height:300px;object-fit:cover;border-radius:13px;margin-top:8px}.toast{display:none;position:fixed;bottom:16px;left:14px;right:14px;padding:13px;background:#182335;border:1px solid #3b4d67;border-radius:13px;text-align:center}@media(max-width:620px){.hero,.three{grid-template-columns:1fr 1fr}}@media(max-width:390px){nav button{font-size:9px}}</style></head><body><main>
+<div class="top"><div><div class="logo">🥗 CarbCount <small>V7 • T1 LOOP</small></div><div class="sub">Comptage intelligent • recettes • produits • CGM</div></div><div class="loop">Mode<br><b>● BOUCLE</b></div></div>
+<nav><button class="active" data-t="home">🏠<br>Accueil</button><button data-t="meal">🍽️<br>Repas</button><button data-t="scan">📷<br>Scan</button><button data-t="photo">📸<br>Photo</button><button data-t="recipes">📖<br>Recettes</button><button data-t="journal">📊<br>Journal</button></nav>
+<section id="home"><div class="card"><h2>🎯 Repas actuel</h2><div class="hero"><div class="metric"><span>Glucides</span><b class="g" id="dc">0.0 g</b></div><div class="metric"><span>Protéines</span><b id="dp">0.0 g</b></div><div class="metric"><span>Lipides</span><b class="o" id="df">0.0 g</b></div><div class="metric"><span>Profil</span><b class="b" id="prof">Standard</b></div><div class="metric"><span>CGM</span><b class="p" id="trendHome">Non renseigné</b></div><div class="metric"><span>Historique</span><b id="hc">0</b></div></div></div><div class="card"><h2>⚡ Actions</h2><div class="grid"><button class="primary" onclick="go('meal')">＋ Nouveau repas</button><button class="blue" onclick="go('scan')">📷 Scanner</button><button onclick="go('photo')">📸 Photo</button><button onclick="go('recipes')">📖 Recettes</button></div></div><div class="card"><b>🛡️ Boucle fermée</b><p class="hint">L'application compte et journalise. Elle ne pilote pas la pompe et ne calcule pas automatiquement une dose d'insuline.</p></div></section>
+<section id="meal" class="hidden"><div class="card"><h2>🍽️ Construire le repas</h2><label>Aliment / marque</label><input id="food" list="foods" placeholder="Banane, Panzani, baguette…"><datalist id="foods"></datalist><div class="three"><div><label>Poids g</label><input id="qty" type="number" value="100"></div><div><label>Glucides/100g</label><input id="cg" type="number"></div><div><label>Protéines/100g</label><input id="pr" type="number" value="0"></div></div><div class="three"><div><label>Lipides/100g</label><input id="ft" type="number" value="0"></div><div><label>État</label><select id="state"><option>Prêt à consommer</option><option>Cru</option><option>Cuit</option></select></div><div><label>Favori</label><select id="fav"><option>Non</option><option>Oui</option></select></div></div><button class="primary" id="add" style="width:100%;margin-top:10px">＋ Ajouter</button></div><div class="card"><h2>📊 Total</h2><div class="hero"><div class="metric"><span>Glucides</span><b class="g" id="mc">0.0 g</b></div><div class="metric"><span>Protéines</span><b id="mp">0.0 g</b></div><div class="metric"><span>Lipides</span><b class="o" id="mf">0.0 g</b></div></div><div id="list"></div><div class="grid"><button id="save">⭐ Enregistrer</button><button class="red" id="clear">Vider</button></div></div></section>
+<section id="scan" class="hidden"><div class="card"><h2>📷 Code-barres</h2><p class="muted">Recherche Open Food Facts.</p><input id="barcode" inputmode="numeric" placeholder="EAN-13 / EAN-8"><button class="primary" id="lookup" style="width:100%;margin-top:8px">🔎 Rechercher</button><div id="scanResult"></div></div></section>
+<section id="photo" class="hidden"><div class="card"><h2>📸 Photo du repas</h2><p class="muted">La photo garde le contexte, mais ne remplace pas la validation des quantités.</p><input id="photoInput" type="file" accept="image/*" capture="environment"><img id="preview" class="photo hidden"><button onclick="go('meal')" style="width:100%;margin-top:8px">＋ Compter les aliments</button></div></section>
+<section id="recipes" class="hidden"><div class="card"><h2>📖 Recettes</h2><div id="recipesList"></div></div><div class="card"><h3>Créer depuis le repas</h3><input id="rn" placeholder="Nom de recette"><label>Portions</label><input id="rp" type="number" value="2" min="1"><button class="primary" id="mk" style="width:100%;margin-top:8px">Enregistrer</button></div></section>
+<section id="journal" class="hidden"><div class="card"><h2>📊 Journal T1</h2><div class="grid"><div><label>Glycémie avant repas</label><input id="bg" placeholder="mg/dL"></div><div><label>Tendance CGM</label><select id="tr"><option>Non renseignée</option><option>↗ Monte</option><option>→ Stable</option><option>↘ Baisse</option><option>↗↗ Monte vite</option><option>↘↘ Baisse vite</option></select></div></div><label>Contexte</label><select id="ctx"><option>Repas habituel</option><option>Restaurant</option><option>Riche en graisses</option><option>Riche en glucides</option><option>Après activité</option><option>Repas tardif</option></select><input id="note" placeholder="Note"><button class="primary" id="log" style="width:100%;margin-top:8px">Enregistrer dans le journal</button></div><div class="card"><h2>🕘 Historique</h2><div id="history"></div></div></section>
+
+<section id="settings" class="tab hidden">
+<div class="card">
+<h2>⚙️ Réglages</h2>
+<p class="muted">Personnalise l'application. Les réglages sont enregistrés sur cet iPhone.</p>
+
+<label>🌍 Langue</label>
+<select id="lang">
+<option value="fr">🇫🇷 Français</option>
+<option value="en">🇬🇧 English</option>
+<option value="es">🇪🇸 Español</option>
+<option value="it">🇮🇹 Italiano</option>
+<option value="de">🇩🇪 Deutsch</option>
+</select>
+
+<label>🎨 Thème / fond</label>
+<div class="three">
+<button class="themeBtn" data-theme="night">🌌 Nuit</button>
+<button class="themeBtn" data-theme="blue">🌊 Bleu</button>
+<button class="themeBtn" data-theme="purple">🪐 Violet</button>
+</div>
+<div class="three" style="margin-top:8px">
+<button class="themeBtn" data-theme="green">🌲 Vert</button>
+<button class="themeBtn" data-theme="red">🌋 Rouge</button>
+<button class="themeBtn" data-theme="slate">🪨 Ardoise</button>
+</div>
+
+<label>✨ Intensité du fond</label>
+<input id="intensity" type="range" min="0" max="100" value="70">
+
+<label>📱 Installation</label>
+<div class="grid">
+<button id="installHelp">➕ Installer sur l'écran d'accueil</button>
+<button id="exportData">💾 Exporter mes données</button>
+</div>
+<button class="red" id="resetData" style="width:100%;margin-top:8px">Réinitialiser les données locales</button>
+</div>
+
+<div class="card ok">
+<h3>🛡️ Mode pompe / boucle fermée</h3>
+<p class="hint">Cette application reste un outil de comptage, de préparation des repas et de journalisation. Elle ne commande pas la pompe et ne remplace pas les algorithmes de sécurité de celle-ci.</p>
+</div>
+
+<div class="card">
+<h3>ℹ️ À propos</h3>
+<p class="hint">CarbCount V7 • application web locale. Les données de repas, recettes et historique restent dans le stockage local du navigateur jusqu'à leur suppression.</p>
+</div>
+</section>
+
+<div id="toast" class="toast"></div></main>
+<script>
+const F=[['Baguette',56,8,1],['Pain complet',41,9,4],['Pain de mie',49,8,4],['Croissant',45,8,21],['Brioche',50,8,13],['Riz blanc cru',78,7,1],['Riz blanc cuit',28,2.7,.3],['Riz basmati cuit',25,2.7,.3],['Pâtes sèches',72,13,2],['Pâtes cuites',30,5.8,1],['Pommes de terre cuites',17,2,.1],['Semoule cuite',23,3.8,.2],['Lentilles cuites',20,9,.4],['Pois chiches cuits',27,9,3],['Banane',20,1.1,.3],['Pomme',12,.3,.2],['Orange',9,.9,.1],['Raisin',16,.7,.2],['Fraise',6,.8,.4],['Yaourt nature',5,4,3.5],['Yaourt aux fruits',14,4,2],['Lait demi-écrémé',5,3.4,1.5],['Nutella',57,6.3,30.9],['Coca-Cola',10.6,0,0],['Coca-Cola Zero',0,0,0],['Kellogg’s Coco Pops',78,5.5,2.5],['Panzani Spaghetti',70,12,1.5],['Harrys Pain de mie',49,8,4],['Pizza',27,12,10],['Lasagnes',15,8,7],['Burger',25,12,12],['Frites',37,4,15],['Sushi',30,6,4],['Poulet',0,31,3.6],['Steak haché',0,26,20],['Œuf',1,13,10],['Saumon',0,20,13],['Brocoli',4,2.8,.4],['Courgette',3,1.2,.3],['Tomate',3,1,.2],['Carotte',7,.9,.2]];
+let meal=[],hist=JSON.parse(localStorage.getItem('cc6h')||'[]'),recipes=JSON.parse(localStorage.getItem('cc6r')||'[]');const $=x=>document.getElementById(x),esc=s=>String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));F.forEach(x=>{let o=document.createElement('option');o.value=x[0];$('foods').appendChild(o)});function toast(s){$('toast').textContent=s;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',2500)}function tot(a=meal){return a.reduce((t,x)=>({c:t.c+x.c,p:t.p+x.p,f:t.f+x.f}),{c:0,p:0,f:0})}function pf(t){return t.f>=25?'Riche en graisses':t.c>=80?'Riche en glucides':t.p>=30?'Riche en protéines':'Standard'}function refresh(){let t=tot();['mc','dc'].forEach(i=>$(i).textContent=t.c.toFixed(1)+' g');['mp','dp'].forEach(i=>$(i).textContent=t.p.toFixed(1)+' g');['mf','df'].forEach(i=>$(i).textContent=t.f.toFixed(1)+' g');$('prof').textContent=pf(t);$('hc').textContent=hist.length;renderMeal()}function renderMeal(){let b=$('list');b.innerHTML=meal.length?'':'<div class="empty">Aucun aliment.</div>';meal.forEach((x,i)=>{let d=document.createElement('div');d.className='food';d.innerHTML='<div class="foodmain"><b>'+esc(x.n)+'</b><div class="meta">'+x.q+' g • '+x.state+'</div></div><b class="carb">'+x.c.toFixed(1)+' g</b><button onclick="meal.splice('+i+',1);refresh()">✕</button>';b.appendChild(d)})}function go(t){document.querySelectorAll('main>section').forEach(s=>s.classList.add('hidden'));$(t).classList.remove('hidden');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.t===t));if(t==='recipes')renderRecipes();if(t==='journal')renderHistory()}document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.t));$('food').oninput=()=>{let q=$('food').value.toLowerCase(),f=F.find(x=>x[0].toLowerCase()===q)||F.find(x=>x[0].toLowerCase().includes(q));if(f){$('cg').value=f[1];$('pr').value=f[2];$('ft').value=f[3]}};$('add').onclick=()=>{let n=$('food').value.trim(),q=+$('qty').value,c=+$('cg').value,p=+$('pr').value||0,f=+$('ft').value||0;if(!n||q<=0||!Number.isFinite(c)||c<0)return toast('Vérifie aliment, poids et glucides.');meal.push({n,q,state:$('state').value,c:q*c/100,p:q*p/100,f:q*f/100});$('food').value='';$('cg').value='';refresh();toast('Ajouté • '+(q*c/100).toFixed(1)+' g')};$('clear').onclick=()=>{meal=[];refresh();toast('Repas vidé.')};$('save').onclick=()=>{if(!meal.length)return toast('Ajoute des aliments.');let n=prompt('Nom du repas','Mon repas');if(!n)return;let t=tot();hist.unshift({n,items:meal,total:t.c,date:new Date().toLocaleString('fr-FR')});localStorage.setItem('cc6h',JSON.stringify(hist));refresh();renderHistory();toast('Enregistré.')};
+$('lookup').onclick=async()=>{let code=$('barcode').value.replace(/\D/g,'');if(code.length<8)return toast('Code-barres invalide.');$('scanResult').innerHTML='<p class="muted">Recherche…</p>';try{let j=await (await fetch('https://world.openfoodfacts.org/api/v2/product/'+code+'.json')).json(),p=j.product,n=p?.nutriments||{},c=Number(n.carbohydrates_100g);if(j.status!==1||!p)return $('scanResult').innerHTML='<p class="muted">Produit non trouvé.</p>';$('scanResult').innerHTML='<div class="card"><b>'+esc(p.product_name_fr||p.product_name||'Produit')+'</b><div class="meta">'+esc(p.brands||'')+'</div><p>Glucides / 100 g : <b class="carb">'+(Number.isFinite(c)?c.toFixed(1):'N/A')+' g</b></p><button class="primary" id="use">Utiliser</button></div>';if(Number.isFinite(c))$('use').onclick=()=>{$('food').value=p.product_name_fr||p.product_name;$('cg').value=c;$('pr').value=Number(n.proteins_100g)||0;$('ft').value=Number(n.fat_100g)||0;go('meal')}}catch(e){$('scanResult').innerHTML='<p class="muted">Connexion impossible.</p>'}};
+$('photoInput').onchange=e=>{let f=e.target.files[0];if(f){$('preview').src=URL.createObjectURL(f);$('preview').classList.remove('hidden')}};function renderRecipes(){$('recipesList').innerHTML=recipes.length?recipes.map((r,i)=>'<div class="food"><div class="foodmain"><b>'+esc(r.name)+'</b><div class="meta">'+r.parts+' portions • '+r.total.toFixed(1)+' g • '+r.per.toFixed(1)+' g/portion</div></div><button onclick="meal=recipes['+i+'].items.map(x=>({...x}));refresh();go(\'meal\')">Charger</button></div>').join(''):'<div class="empty">Aucune recette.</div>'}$('mk').onclick=()=>{if(!meal.length)return toast('Construis le repas.');let n=$('rn').value.trim(),parts=Math.max(1,+$('rp').value||1);if(!n)return toast('Donne un nom.');let t=tot();recipes.unshift({name:n,items:meal,total:t.c,parts,per:t.c/parts});localStorage.setItem('cc6r',JSON.stringify(recipes));renderRecipes();toast('Recette créée.')};function renderHistory(){$('history').innerHTML=hist.length?hist.slice(0,60).map(r=>'<div class="food"><div class="foodmain"><b>'+esc(r.n)+'</b><div class="meta">'+esc(r.date)+' • '+r.items.length+' aliments'+(r.trend?' • '+esc(r.trend):'')+'</div></div><b class="carb">'+r.total.toFixed(1)+' g</b></div>').join(''):'<div class="empty">Aucun repas.</div>'}$('log').onclick=()=>{if(!meal.length)return toast('Construis le repas.');let t=tot();hist.unshift({n:$('ctx').value+($('note').value?' • '+$('note').value:''),items:meal,total:t.c,date:new Date().toLocaleString('fr-FR'),bg:$('bg').value,trend:$('tr').value});localStorage.setItem('cc6h',JSON.stringify(hist));$('trendHome').textContent=$('tr').value;refresh();renderHistory();toast('Journal enregistré.')};refresh();renderRecipes();renderHistory();
+
+/* ===== CarbCount V7 settings / themes / language ===== */
+const V7_THEMES={
+ night:{bg:"#07101d",glow:"#18304a"},
+ blue:{bg:"#06111d",glow:"#075477"},
+ purple:{bg:"#10091d",glow:"#48226d"},
+ green:{bg:"#06150f",glow:"#155b3d"},
+ red:{bg:"#17080b",glow:"#6b2430"},
+ slate:{bg:"#0c1015",glow:"#394657"}
+};
+const V7_I18N={
+ fr:{home:"Accueil",meal:"Repas",scan:"Scan",photo:"Photo",recipes:"Recettes",journal:"Journal",settings:"Réglages"},
+ en:{home:"Home",meal:"Meal",scan:"Scan",photo:"Photo",recipes:"Recipes",journal:"Journal",settings:"Settings"},
+ es:{home:"Inicio",meal:"Comida",scan:"Escáner",photo:"Foto",recipes:"Recetas",journal:"Diario",settings:"Ajustes"},
+ it:{home:"Home",meal:"Pasto",scan:"Scanner",photo:"Foto",recipes:"Ricette",journal:"Diario",settings:"Impostazioni"},
+ de:{home:"Start",meal:"Mahlzeit",scan:"Scan",photo:"Foto",recipes:"Rezepte",journal:"Tagebuch",settings:"Einstellungen"}
+};
+function applyTheme(name,intensity){
+  const t=V7_THEMES[name]||V7_THEMES.night;
+  document.documentElement.style.setProperty("--bg2",t.bg);
+  document.documentElement.style.setProperty("--glow",t.glow);
+  const i=Math.max(0,Math.min(100,Number(intensity||70)));
+  document.documentElement.style.setProperty("--glow", t.glow + Math.round(i*0.35).toString(16).padStart(2,"0"));
+  localStorage.setItem("cc7_theme",name);
+  localStorage.setItem("cc7_intensity",i);
+}
+function applyLanguage(lang){
+  const x=V7_I18N[lang]||V7_I18N.fr;
+  const buttons=[...document.querySelectorAll("nav button")];
+  const keys=["home","meal","scan","photo","recipes","journal","settings"];
+  buttons.forEach((b,i)=>{if(x[keys[i]]){const emoji=b.textContent.trim().slice(0,2);b.innerHTML=emoji+"<br>"+x[keys[i]]}});
+  localStorage.setItem("cc7_lang",lang);
+  document.documentElement.lang=lang;
+}
+const savedTheme=localStorage.getItem("cc7_theme")||"night";
+const savedIntensity=localStorage.getItem("cc7_intensity")||70;
+const savedLang=localStorage.getItem("cc7_lang")||"fr";
+applyTheme(savedTheme,savedIntensity);
+$("lang").value=savedLang;
+$("intensity").value=savedIntensity;
+applyLanguage(savedLang);
+
+document.querySelectorAll(".themeBtn").forEach(b=>b.onclick=()=>applyTheme(b.dataset.theme,$("intensity").value));
+$("intensity").oninput=()=>applyTheme(localStorage.getItem("cc7_theme")||"night",$("intensity").value);
+$("lang").onchange=()=>applyLanguage($("lang").value);
+
+$("exportData").onclick=()=>{
+  const payload={version:"7",exportedAt:new Date().toISOString(),history:hist,recipes:recipes};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="carbcount-v7-backup.json";a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast("Sauvegarde exportée.");
+};
+$("resetData").onclick=()=>{
+  if(confirm("Supprimer l'historique et les recettes enregistrés sur cet iPhone ?")){
+    localStorage.removeItem("cc6_hist");localStorage.removeItem("cc6_recipes");
+    hist=[];recipes=[];meal=[];refresh();renderHistory();renderRecipes();toast("Données locales supprimées.");
+  }
+};
+$("installHelp").onclick=()=>{
+  alert("Sur iPhone : ouvre CarbCount dans Safari → bouton Partager → « Sur l’écran d’accueil » → Ajouter. La version V7 peut alors être utilisée comme une PWA.");
+};
+</script></body></html>
